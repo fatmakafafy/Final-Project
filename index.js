@@ -12,7 +12,7 @@ app.use(express.json())
 app.use('/users',userRouter)
 app.use('/blogs',blogRouter)
 dbConnection()
-
+//ay 7aga
 
 app.get('/', (req, res) => res.send('Hello World!'))
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
