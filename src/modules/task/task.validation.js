@@ -6,7 +6,6 @@ const addTaskSchema = Joi.object({
     // createdBy: Joi.string().hex().length(24)
 })
 
-
 export {
     addTaskSchema
 }

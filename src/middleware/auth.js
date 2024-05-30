@@ -13,23 +13,40 @@
 // }
 
 
+// import jwt from "jsonwebtoken";
+
+// export const userAuth = (req, res, next) => {
+//     const token = req.header('token');
+//     jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
+//         if (err) {
+//             res.json({ message: "error in token or token not provided", err });
+//         } else {
+//             req.userId = decoded.userId;
+//             next();
+//         }
+//     });
+// };
+
+
 import jwt from "jsonwebtoken";
 
 export const userAuth = (req, res, next) => {
-    const token = req.header('token');
-    console.log('Token:', token); // Debug: Check if token is received
-    console.log('JWT_KEY:', process.env.JWT_KEY); // Debug: Check if JWT_KEY is loaded
+    const authHeader = req.header('token');
+    if (!authHeader) {
+        return res.json({ message: "Token not provided" });
+    }
 
-    if (!process.env.JWT_KEY) {
-        return res.status(500).json({ message: 'JWT_KEY is not defined in environment variables' });
+    const token = authHeader.split(' ')[1];
+    if (!token) {
+        return res.json({ message: "Token not provided" });
     }
 
     jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
         if (err) {
-            return res.json({ message: "error in token or token not provided", err });
-        } else {
-            req.userId = decoded.userId;
-            next();
+            return res.json({ message: "Error in token", err });
         }
+        req.userId = decoded.userId;
+        next();
     });
 };
+
