@@ -24,8 +24,8 @@ dotenv.config();
 import { dbConnection } from './database/dbConnection.js';
 import userRouter from './src/modules/user/user.router.js';
 import taskRouter from './src/modules/task/task.router.js';
-import notificationRouter from './src/modules/notifications/notification.router.js'
-import { checkSensorDataAndNotify } from './src/modules/notifications/notification.controller.js';
+import notificationRouter  from './src/modules/notification/notification.controller.js'
+import { checkSensorDataAndNotify } from './src/modules/notification/notification.controller.js';
 const app = express();
 const port = process.env.PORT || 3000;
 
