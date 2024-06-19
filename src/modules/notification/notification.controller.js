@@ -21,7 +21,7 @@ import axios from 'axios';
 // Function to fetch the latest reading from MongoDB
     async function fetchLatestReading() {
         try {
-            const latestReading = await HeartRateModel.findOne().sort({ timestamp: -1 });
+            const latestReading = await HeartRateModel.findOne().sort({ createdAt:-1 });
             return latestReading;
         } catch (err) {
             console.error('Error fetching latest reading:', err);
