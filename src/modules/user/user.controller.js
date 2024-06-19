@@ -128,7 +128,7 @@ export const updateUserInfo = async (req, res) => {
         });
     } else {
         // Update user information without changing the password
-        let user = await userModel.findByIdAndUpdate(_id, { name, email }, { new: true });
+        let user = await userModel.findByIdAndUpdate(email, { name}, { new: true });
         if (user) {
             res.json({ message: "Success", user });
         } else {
