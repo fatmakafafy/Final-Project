@@ -24,14 +24,22 @@ dotenv.config();
 import { dbConnection } from './database/dbConnection.js';
 import userRouter from './src/modules/user/user.router.js';
 import taskRouter from './src/modules/task/task.router.js';
-
+import notificationRouter from './src/modules/notifications/notification.router.js'
+import { checkSensorDataAndNotify } from './src/modules/notifications/notification.controller.js';
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use('/users', userRouter);
 app.use('/tasks', taskRouter);
+app.use('/notifications',notificationRouter)
 dbConnection();
 
 app.get('/', (req, res) => res.send('Hello World!'));
-app.listen(port, () => console.log(`http://localhost:${port}`));
+// app.listen(port, () => console.log(`http://localhost:${port}`));
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+        setInterval(async () => {
+        await checkSensorDataAndNotify();
+    }, 1000);
+});
