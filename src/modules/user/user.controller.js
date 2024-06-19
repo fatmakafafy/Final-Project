@@ -85,7 +85,7 @@ export const getUserInfo = async (req, res) => {
 
 export const updateUserInfo = async (req, res) => {
     const { name,email, password } = req.body
-    let user = await userModel.findOne({ email },{name,password});
+    let user = await userModel.findOne({ email },{name, password: hash });
     if (user) {
         res.json({ message: "Success", user })
     } else {
