@@ -75,3 +75,20 @@ export const signIn = async (req, res) => {
         res.json({ message: 'Wrong email or password' });
     }
 };
+// Display user information
+export const getUserInfo = async (req, res) => {
+    let users = await userModel.find()
+    res.json({ message: "Success", users })
+}
+
+// update user information
+
+export const updateUserInfo = async (req, res) => {
+    const { name,email, password } = req.body
+    let user = await userModel.findOne({ email },{name,password});
+    if (user) {
+        res.json({ message: "Success", user })
+    } else {
+        res.json({ message: "not found" })
+    }
+}
