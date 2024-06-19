@@ -92,3 +92,4 @@ export const updateUserInfo = async (req, res) => {
         res.json({ message: "not found" })
     }
 }
+
