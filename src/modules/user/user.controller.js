@@ -84,12 +84,19 @@ export const getUserInfo = async (req, res) => {
 // update user information
 
 export const updateUserInfo = async (req, res) => {
-    const { name,email, password } = req.body
-    let user = await userModel.findOne({ email },{name, password}, { new: true });
-    if (user) {
-        res.json({ message: "Success", user })
-    } else {
-        res.json({ message: "not found" })
+    const { name, email, password } = req.body;
+    let updateData = {};
+    if (name) updateData.name = name;
+    if (email) updateData.email = email;
+    if (password) {
+        updateData.password = await bcrypt.hash(password, Number(process.env.ROUND));
     }
-}
+
+    let user = await userModel.findOneAndUpdate({ email }, updateData, { new: true });
+    if (user) {
+        res.json({ message: "Success", user });
+    } else {
+        res.json({ message: "User not found" });
+    }
+};
 
