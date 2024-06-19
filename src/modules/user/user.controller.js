@@ -110,7 +110,7 @@ export const getUserInfo = async (req, res) => {
 
 // update user information
 export const updateUserInfo = async (req, res) => {
-    const { name, email, password} = req.body;
+    const { name, email, password, _id } = req.body;
 
     // Hash the new password if provided
     if (password) {
@@ -119,7 +119,7 @@ export const updateUserInfo = async (req, res) => {
                 return res.json({ message: "Error hashing password", err });
             }
             // Update user information with the hashed password
-            let user = await userModel.findByIdAndUpdate(email, { name,  password: hash }, { new: true });
+            let user = await userModel.findByIdAndUpdate(_id, { name, email, password: hash }, { new: true });
             if (user) {
                 res.json({ message: "Success", user });
             } else {
@@ -128,7 +128,7 @@ export const updateUserInfo = async (req, res) => {
         });
     } else {
         // Update user information without changing the password
-        let user = await userModel.findByIdAndUpdate(email, { name}, { new: true });
+        let user = await userModel.findByIdAndUpdate(_id, { name, email }, { new: true });
         if (user) {
             res.json({ message: "Success", user });
         } else {
@@ -136,4 +136,5 @@ export const updateUserInfo = async (req, res) => {
         }
     }
 };
+
 
