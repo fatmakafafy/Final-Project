@@ -83,13 +83,57 @@ export const getUserInfo = async (req, res) => {
 
 // update user information
 
+// export const updateUserInfo = async (req, res) => {
+//     const { name,email, password } = req.body
+//     let user = await userModel.findOne({ email },{name, password }, { new: true });
+//     if (user) {
+//         res.json({ message: "Success", user })
+//     } else {
+//         res.json({ message: "not found" })
+//     }
+// }
+
+// update user information
+
+// export const updateUserInfo = async (req, res) => {
+//     const { name, email, password , _id } = req.body
+//     bcrypt.hash(password, Number(process.env.ROUND), async function (err, hash) {
+//         let user = await userModel.findOneAndUpdate({ email }, { name, password: hash }, { new: true });
+//         res.json({ message: "Success" });
+//         if (user) {
+//             res.json({ message: "Success", user })
+//         } else {
+//             res.json({ message: "not found" })
+//         }
+//     });
+// }
+
+// update user information
 export const updateUserInfo = async (req, res) => {
-    const { name,email } = req.body
-    let user = await userModel.findOne({ email },{name}, { new: true });
-    if (user) {
-        res.json({ message: "Success", user })
+    const { name, email, password, _id } = req.body;
+
+    // Hash the new password if provided
+    if (password) {
+        bcrypt.hash(password, Number(process.env.ROUND), async function (err, hash) {
+            if (err) {
+                return res.json({ message: "Error hashing password", err });
+            }
+            // Update user information with the hashed password
+            let user = await userModel.findByIdAndUpdate(_id, { name, email, password: hash }, { new: true });
+            if (user) {
+                res.json({ message: "Success", user });
+            } else {
+                res.json({ message: "User not found" });
+            }
+        });
     } else {
-        res.json({ message: "not found" })
+        // Update user information without changing the password
+        let user = await userModel.findByIdAndUpdate(_id, { name, email }, { new: true });
+        if (user) {
+            res.json({ message: "Success", user });
+        } else {
+            res.json({ message: "User not found" });
+        }
     }
-}
+};
 
