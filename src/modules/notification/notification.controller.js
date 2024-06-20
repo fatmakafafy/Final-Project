@@ -47,7 +47,7 @@ async function checkSensorDataAndNotify() {
 
         if (heartRate < 60 || heartRate > 100) {
             // Send notification to the Flutter notification server
-            await axios.post('http://localhost:4000/send-notification', {
+            await axios.post('https://final-project-1-s05p.onrender.com/send-notification', {
                 heartRate,//50
                 message: `Heart rate is ${heartRate}.`
             });

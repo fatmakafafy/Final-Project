@@ -4,11 +4,9 @@
   "description": "",
   "main": "index.js",
   "type": "module",
-    "scripts": {
-      "start:notificationServer": "node notificationServer.js",
-      "start:index": "node index.js",
-      "start:all": "npm-run-all --parallel start:notificationServer start:index"
-    },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
