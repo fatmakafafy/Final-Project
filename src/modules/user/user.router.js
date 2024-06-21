@@ -22,6 +22,6 @@ const userRouter = express.Router();
 userRouter.post('/signup', validation(signUpSchema), signup);
 userRouter.post('/signIn', validation(signInSchema), signIn);
 userRouter.get('/getUserInfo', validation(getUserInfoSchema), getUserInfo);
-userRouter.put('/updateUserInfo', validation(updateUserInfoSchema), updateUserInfo);
+userRouter.put('/updateUserInfo', updateUserInfo);
 
 export default userRouter;
