@@ -6,15 +6,19 @@ const addTask = async (req, res) => {
     res.json({ message: "Success" })   
 }
 
+
 const getAllTasks = async (req, res) => {
     let tasks = await taskModel.find().populate('createdBy', 'name -_id')
     res.json({ message: "Success", tasks })
 }
+
+
 const getUserTasks = async (req, res) => {
     const { id } = req.params
     let tasks = await taskModel.find({ createdBy: id }).populate('createdBy', 'name -_id')
     res.json({ message: "Success", tasks })
 }
+
 
 const updateTask = async (req, res) => {
     const { title, description, _id } = req.body
@@ -25,6 +29,7 @@ const updateTask = async (req, res) => {
         res.json({ message: "not found" })
     }
 }
+
 
 const deleteTask = async (req, res) => {
     const { _id } = req.body
