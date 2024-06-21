@@ -21,7 +21,10 @@
 import mongoose from "mongoose";
 
 const userSchema = mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
+    _id:{
+        type:mongoose.Types.ObjectId,
+        ref:'user'
+    },
     name: String,
     email: String,
     password: String,
