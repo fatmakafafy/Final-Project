@@ -37,7 +37,7 @@ const childSchema = new mongoose.Schema({
     },
     parentId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'user',
         required: true
     },
     createdAt: {
