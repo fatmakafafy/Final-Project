@@ -49,5 +49,5 @@ app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
         setInterval(async () => {
         await checkSensorDataAndNotify();
-    }, 1000);
+    }, 86400000);
 });
